@@ -37,9 +37,7 @@ def google_search(query: str, config: Config, num_results: int = 8) -> str:
     if not results:
         return json.dumps(search_results)
 
-    for item in islice(results, num_results):
-        search_results.append(item)
-
+    search_results.extend(iter(islice(results, num_results)))
     results = json.dumps(search_results, ensure_ascii=False, indent=4)
     return safe_google_results(results)
 
@@ -117,10 +115,13 @@ def safe_google_results(results: str | list) -> str:
     Returns:
         str: The results of the search.
     """
-    if isinstance(results, list):
-        safe_message = json.dumps(
-            [result.encode("utf-8", "ignore").decode("utf-8") for result in results]
+    return (
+        json.dumps(
+            [
+                result.encode("utf-8", "ignore").decode("utf-8")
+                for result in results
+            ]
         )
-    else:
-        safe_message = results.encode("utf-8", "ignore").decode("utf-8")
-    return safe_message
+        if isinstance(results, list)
+        else results.encode("utf-8", "ignore").decode("utf-8")
+    )
