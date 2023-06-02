@@ -163,7 +163,7 @@ def chat_with_ai(
             break
         message_sequence.add("system", plugin_response)
     # Calculate remaining tokens
-    tokens_remaining = token_limit - current_tokens_used
+    tokens_remaining = (token_limit - current_tokens_used)*0.75
     # assert tokens_remaining >= 0, "Tokens remaining is negative.
     # This should never happen, please submit a bug report at
     #  https://www.github.com/Torantulino/Auto-GPT"
