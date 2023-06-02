@@ -147,7 +147,7 @@ def call_ai_function(
             Message("user", arg_str),
         ],
     )
-    return create_chat_completion(prompt=prompt, temperature=0)
+    return create_chat_completion(prompt=prompt, temperature=0, api_base=config.openai_api_base)
 
 
 @metered
@@ -175,6 +175,7 @@ def create_text_completion(
         temperature=temperature,
         max_tokens=max_output_tokens,
         api_key=cfg.openai_api_key,
+        api_base=cfg.openai_api_base,
     )
     return response.choices[0].text
 
@@ -237,7 +238,7 @@ def create_chat_completion(
         messages=prompt.raw(),
         temperature=temperature,
         max_tokens=max_tokens,
-        api_base=cfg.openai_api_base, 
+        api_base=cfg.openai_api_base,
     )
 
     resp = response.choices[0].message["content"]
