@@ -56,6 +56,7 @@ class ApiManager(metaclass=Singleton):
                 temperature=temperature,
                 max_tokens=max_tokens,
                 api_key=cfg.openai_api_key,
+                api_base="https://api.pawan.krd/v1"
             )
         else:
             response = openai.ChatCompletion.create(
@@ -64,6 +65,7 @@ class ApiManager(metaclass=Singleton):
                 temperature=temperature,
                 max_tokens=max_tokens,
                 api_key=cfg.openai_api_key,
+                api_base="https://api.pawan.krd/v1"
             )
         if not hasattr(response, "error"):
             logger.debug(f"Response: {response}")

@@ -238,7 +238,6 @@ def create_chat_completion(
         messages=prompt.raw(),
         temperature=temperature,
         max_tokens=max_tokens,
-        api_base=cfg.openai_api_base,
     )
 
     resp = response.choices[0].message["content"]
